@@ -5,7 +5,8 @@ import markdown2
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": util.list_entries(),
+        
     })
 
 def show_entry(request, title):
