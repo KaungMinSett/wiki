@@ -19,6 +19,22 @@ def show_entry(request, title):
         return render(request, "encyclopedia/entry.html", {
         'content': util.covert_to_html(title)
 
+    })
+
+def search(request):
+    entries =[]
+    if request.method == 'POST':
+      
+        q = request.POST.get('q')
+        if util.get_entry(q) == None:
+            for entry in util.list_entries():
+                content = util.covert_to_html(entry)
+                if q in content:
+                    entries.append(entry)
+            return render(request, "encyclopedia/search_result.html", {"entries": entries})
+        else:
+            return render(request, "encyclopedia/entry.html", {
+            'content': util.covert_to_html(q)
 
     })
 
