@@ -38,3 +38,21 @@ def search(request):
 
     })
 
+
+    
+
+def create_page(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        if util.get_entry(title) == None:
+            util.save_entry(title, content)
+            return render(request, "encyclopedia/entry.html", {
+            'content': util.covert_to_html(title)
+        })
+        else:
+            return render(request, "encyclopedia/new_page.html",{
+                "message": "Title already exists, Please change the title."
+            })
+    else:
+        return render(request, "encyclopedia/new_page.html")
