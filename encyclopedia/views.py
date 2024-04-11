@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from . import util
-
+import random
 from django.core.files.storage import default_storage
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -78,3 +78,12 @@ def edit_page(request, title):
             'title': title
         
         })
+
+def get_random(request):
+   
+    entries = util.list_entries()
+    random_entry = random.choice(entries)
+    return render(request, "encyclopedia/entry.html", {
+        'content': util.covert_to_html(random_entry),
+        'title': random_entry
+    })
