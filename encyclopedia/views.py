@@ -49,7 +49,8 @@ def create_page(request):
         if util.get_entry(title) == None: # not such title exists then save the entry
             util.save_entry(title, content)
             return render(request, "encyclopedia/entry.html", {
-            'content': util.covert_to_html(title)
+            'content': util.covert_to_html(title),
+            'title': title
         })
         else:
             return render(request, "encyclopedia/new_page.html",{ #if title exists then return error message
