@@ -46,8 +46,9 @@ def search(request):
 def create_page(request):
     if request.method == 'POST':
         title = request.POST.get('title')
+       
         content = request.POST.get('content')
-        if util.get_entry(title) == None: # not such title exists then save the entry
+        if util.get_entry(title) == None and title.strip()!='' or not title: # not such title exists then save the entry
             util.save_entry(title, content)
             return render(request, "encyclopedia/entry.html", {
             'content': util.covert_to_html(title),
@@ -55,7 +56,7 @@ def create_page(request):
         })
         else:
             return render(request, "encyclopedia/new_page.html",{ #if title exists then return error message
-                "message": "Title already exists, Please change the title."
+                "message": "Title already exists, or title can't be blank."
             })
     else:
         return render(request, "encyclopedia/new_page.html")
