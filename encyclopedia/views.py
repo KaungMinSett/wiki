@@ -35,7 +35,8 @@ def search(request):
             return render(request, "encyclopedia/search_result.html", {"entries": entries}) # pass search result list to template
         else:
             return render(request, "encyclopedia/entry.html", { # if title exists then return the entry
-            'content': util.covert_to_html(q)
+            'content': util.covert_to_html(q),
+            'title': q
 
     })
 
